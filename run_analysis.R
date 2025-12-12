@@ -68,6 +68,14 @@ activity_labels <- read.table(paste0(directory_path, "/activity_labels.txt"), he
 
 head(activity_labels)
 
+#verify if the indices are integer
+class(activity_labels$V1)
+
+#Change activity indices for the corresponding label
+X_total$activity <- sapply(X_total$activity, function(x) {activity_labels[activity_labels$V1 == x,2]})
+
+head(X_total$activity)
+
 
 #Get the 561 features names
 features <- read.table(paste0(directory_path, "/features.txt"), header = FALSE)
@@ -78,10 +86,12 @@ head(features)
 dim(features)
 
 
-
 #add column names 
-colnames(X_train) <- features[,"Feature"]
+colnames(X_total)[1:561] <- features[,2]
 # Check the names
-X_train[1, 1:10]
+X_total[1,]
 
+#Create a new data set that keeps only the means and standard deviations of each variable.
+X_reduced <- X_total[,grepl("mean\\(\\)|std\\(\\)", colnames(X_total))]
 
+head(X_reduced)
