@@ -113,4 +113,11 @@ dim(X_reduced)
 names(X_reduced)[3:ncol(X_reduced)]
 
 X_summarized <- X_reduced %>% group_by(subject, activity) %>% summarize(across(everything(), mean))
+
+head(X_summarized)
+
+dim(X_summarized)
+
+#Save the tidy data set as a .txt file
+write.table(X_summarized, paste0(directory_path, "/X_summarized.txt"), row.name=FALSE)
                      
