@@ -108,4 +108,9 @@ X_reduced <- select(X_reduced, subject, activity, everything())
 
 head(X_reduced)
 
+dim(X_reduced)
+
+names(X_reduced)[3:ncol(X_reduced)]
+
+X_summarized <- X_reduced %>% group_by(subject, activity) %>% summarize(across(everything(), mean))
                      
