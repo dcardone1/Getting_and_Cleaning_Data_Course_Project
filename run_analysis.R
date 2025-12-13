@@ -86,12 +86,26 @@ head(features)
 dim(features)
 
 
-#add column names 
+#add column names except for the last two columns 
 colnames(X_total)[1:561] <- features[,2]
 # Check the names
 X_total[1,]
 
 #Create a new data set that keeps only the means and standard deviations of each variable.
-X_reduced <- X_total[,grepl("mean\\(\\)|std\\(\\)", colnames(X_total))]
+X_reduced <- X_total[,grepl("mean\\(\\)|std\\(\\)|activity|subject", colnames(X_total))]
 
 head(X_reduced)
+
+dim(X_reduced)
+
+#Install dplyr package to summarize the dataset
+install.packages("dplyr")
+
+library(dplyr)
+
+#Put subject and activity first, the function everything get every other column that is not named in the arguments 
+X_reduced <- select(X_reduced, subject, activity, everything())
+
+head(X_reduced)
+
+                     
